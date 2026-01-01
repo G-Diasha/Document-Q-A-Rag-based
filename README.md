@@ -1,4 +1,4 @@
-**📄 Document QnA – RAG-Based Intelligent System**
+# 📄 Document QnA – RAG-Based Intelligent System
 
 An end-to-end **Retrieval-Augmented Generation (RAG)** system that enables users to ask natural-language questions over uploaded documents and receive context-aware, accurate answers powered by Large Language Models.
 
