@@ -19,7 +19,7 @@ llm= ChatGroq(
 )
 
 def create_vector_db(filename):
-    loader = UnstructuredPDFLoader(f"{working_dir}\\{filename}")
+    loader = UnstructuredPDFLoader(f"{working_dir}/{filename}")
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size = 2000,
@@ -30,14 +30,14 @@ def create_vector_db(filename):
     vector_db = Chroma.from_documents(
         embedding=embed_model,
         documents= text_chunks,
-        persist_directory= f"{working_dir}\\vector_store_db"
+        persist_directory= f"{working_dir}/vector_store_db"
     )
     return "Vector store created successfully"
 
 def question_answer(user_question):
     vector_db = Chroma(
         embedding_function= embed_model,
-        persist_directory= f"{working_dir}\\vector_store_db"
+        persist_directory= f"{working_dir}/vector_store_db"
     )
     #Create a retriever for document search
     retriever = vector_db.as_retriever()
