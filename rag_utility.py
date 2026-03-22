@@ -1,4 +1,5 @@
 import os
+import streamlit as st
 from dotenv import load_dotenv
 #from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -20,21 +21,24 @@ llm= ChatGroq(
 )
 
 def create_vector_db(file_name):
-    loader =PyPDFLoader(f"{working_dir}/{file_name}")
-    documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(
+    try: 
+        loader =PyPDFLoader(f"{working_dir}/{file_name}")
+        documents = loader.load()
+        text_splitter = RecursiveCharacterTextSplitter(
         chunk_size = 2000,
         chunk_overlap = 200
     )
-    text_chunks = text_splitter.split_documents(documents)
+        text_chunks = text_splitter.split_documents(documents)
     #Store the document chunks in a Chroma vector database
-    vector_db = Chroma.from_documents(
+        vector_db = Chroma.from_documents(
         embedding=embed_model,
         documents= text_chunks,
         persist_directory= f"{working_dir}/vector_store_db"
     )
-    return "Vector store created successfully"
-
+        return "Vector store created successfully"
+    except Exception as e:
+        st.error(f"⚠️ Could not process this PDF. It may be corrupted or password-protected. Please try a different file.")
+        st.stop()
 def question_answer(user_question):
     vector_db = Chroma(
         embedding_function= embed_model,
