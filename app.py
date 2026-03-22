@@ -18,8 +18,12 @@ if uploaded_file is not None:
     #save the file
     with open(save_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-    process_document = create_vector_db(uploaded_file.name)
-    st.info("Document processed successfully!")
+    with st.spinner("Processing document...⏳"):
+        process_document = create_vector_db(uploaded_file.name)
+    if process_document:
+        st.success("Document processed successfully! ✅")
+    #process_document = create_vector_db(uploaded_file.name)
+    #st.info("Document processed successfully!")
 
 user_question = st.text_area("Ask your question about the document below")
 if st.button("Answer➤"):
