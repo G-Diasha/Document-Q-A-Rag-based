@@ -37,8 +37,7 @@ def create_vector_db(file_name):
     )
         return "Vector store created successfully"
     except Exception as e:
-        st.error(f"⚠️ Could not process this PDF. It may be corrupted or password-protected. Please try a different file.")
-        st.stop()
+        print(f"❌ Error: Could not process the PDF. Reason: {e}")
 def question_answer(user_question):
     vector_db = Chroma(
         embedding_function= embed_model,
