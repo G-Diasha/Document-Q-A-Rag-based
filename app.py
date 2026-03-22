@@ -17,7 +17,7 @@ if uploaded_file is not None:
     #save the file
     with open(save_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-    process_document = create_vector_db(uploaded_file.name)
+    process_document = create_vector_db(save_path)
     st.info("Document processed successfully!")
 
 user_question = st.text_area("Ask your question about the document below")
