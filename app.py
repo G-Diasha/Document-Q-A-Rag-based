@@ -22,7 +22,7 @@ if uploaded_file is not None:
         f.write(uploaded_file.getbuffer())
     
     with st.spinner("Processing document...⏳"):
-        process_document = create_vector_db(save_path)  # ✅ pass save_path not uploaded_file.name
+        process_document = create_vector_db(uploaded_file.name)  # ✅ pass save_path not uploaded_file.name
     
     if process_document:
         st.success("Document processed successfully! ✅")
