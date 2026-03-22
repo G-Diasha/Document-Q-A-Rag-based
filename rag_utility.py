@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
-from langchain_community.document_loaders import UnstructuredPDFLoader
+#from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_classic.chains import RetrievalQA
+from langchain_community.document_loaders import PyPDFLoader
 
 load_dotenv()
 
@@ -18,8 +19,8 @@ llm= ChatGroq(
     temperature= 0.2
 )
 
-def create_vector_db(filename):
-    loader = UnstructuredPDFLoader(f"{working_dir}/{filename}")
+def create_vector_db(file_name):
+    loader =PyPDFLoader(f"{working_dir}/{file_name}")
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size = 2000,
