@@ -1,7 +1,6 @@
 # 📄 Document QnA – RAG-Based Intelligent System
 
-🔗 Live demo:  https://lnkd.in/euXp9UQF
-
+🔗 Live demo: https://document-q-a-rag-based-7.streamlit.app/ 
 An end-to-end **Retrieval-Augmented Generation (RAG)** system that enables users to ask natural-language questions over uploaded documents and receive context-aware, accurate answers powered by Large Language Models.
 
 **🚀 Project Overview**
