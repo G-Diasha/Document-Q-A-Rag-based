@@ -25,7 +25,7 @@ def create_vector_db(file_name):
         loader =PyPDFLoader(f"{working_dir}/{file_name}")
         documents = loader.load()
         text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size = 2000,
+        chunk_size = 500,
         chunk_overlap = 200
     )
         text_chunks = text_splitter.split_documents(documents)
