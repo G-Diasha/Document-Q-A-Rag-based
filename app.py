@@ -18,7 +18,7 @@ uploaded_file = st.file_uploader("Please upload your PDF file", type=["pdf"])
 if uploaded_file is not None:
     
     # ✅ Clear old vector DB from memory before creating new one
-    if st.session_state.vector_db is not None:
+    if "vector_db" not in st.session_state:
         st.session_state.vector_db = None
         gc.collect()  # force Python to free the memory immediately
     save_path = os.path.join(working_dir, uploaded_file.name) 
