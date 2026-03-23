@@ -1,4 +1,5 @@
 import os
+import gc
 import streamlit as st
 from rag_utility import create_vector_db, question_answer
 
@@ -15,15 +16,18 @@ st.title("🌐 Document Q&A APP (RAG-based)")
 uploaded_file = st.file_uploader("Please upload your PDF file", type=["pdf"])
 
 if uploaded_file is not None:
-    #file_name = os.path.basename(uploaded_file.name)  # ✅ extract clean filename
-    save_path = os.path.join(working_dir, uploaded_file.name)   # ✅ build full path
     
+    # ✅ Clear old vector DB from memory before creating new one
+    if st.session_state.vector_db is not None:
+        st.session_state.vector_db = None
+        gc.collect()  # force Python to free the memory immediately
+    save_path = os.path.join(working_dir, uploaded_file.name) 
     with open(save_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
     
     #with st.spinner("Processing document...⏳"):
     
-    process_document = create_vector_db(uploaded_file.name)  # ✅ pass save_path not uploaded_file.name
+    process_document = create_vector_db(uploaded_file.name) 
     if process_document:
         st.success("Document processed successfully! ✅")
     else:
